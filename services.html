@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kek & Hutan | Services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --green:#6F8F5A;
+  --yellow:#F2C94C;
+  --yellow-pastel:#F6E7A6;
+  --cream:#F5F1E8;
+  --dark:#333;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--green);color:var(--dark);}
+
+/* NAV */
+header{
+  position:fixed;top:0;width:100%;
+  background:var(--yellow-pastel);
+  z-index:1000;
+}
+.navbar{
+  max-width:1200px;margin:auto;
+  display:flex;justify-content:space-between;
+  align-items:center;padding:15px 20px;
+}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:25px;display:flex;align-items:center;
+  color:var(--green);
+}
+.logo img{width:40px;margin-right:10px;}
+nav a{
+  margin-left:25px;text-decoration:none;
+  color:var(--green);
+  font-size:14px;
+}
+nav a:hover, nav a.active{color:var(--yellow);}
+
+/* HERO */
+.hero{
+  height:70vh;
+  background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
+    url('images/services1.png');
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-top:80px;
+}
+.hero-box{
+  background:#fff;
+  max-width:720px;
+  width:90%;
+  padding:35px;
+  border-radius:18px;
+  text-align:center;
+}
+.hero-box h1{
+  font-family:'Playfair Display',serif;
+  font-size:34px;
+  margin-bottom:10px;
+}
+.hero-box p{
+  font-size:14px;
+  color:#666;
+  margin-bottom:25px;
+}
+.hero-tabs{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+.hero-tabs button{
+  padding:10px 24px;
+  border:none;
+  border-radius:20px;
+  background:#eee;
+  font-size:13px;
+  cursor:pointer;
+}
+.hero-tabs button.active{
+  background:var(--yellow);
+}
+
+/* SECTION */
+section{padding:90px 20px;}
+.container{max-width:1200px;margin:auto;}
+.section-title{text-align:center;margin-bottom:35px;}
+.section-title h2{
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+}
+
+/* CARDS */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+}
+.card{
+  background:var(--cream);
+  border-radius:18px;
+  overflow:hidden;
+}
+.card img{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+}
+.card-body{
+  padding:20px;
+  text-align:center;
+}
+.card-body h3{
+  font-family:'Playfair Display',serif;
+  margin-bottom:10px;
+}
+.card-body p{
+  font-size:14px;
+  color:#555;
+  margin-bottom:15px;
+}
+.card-body button{
+  background:var(--yellow);
+  border:none;
+  padding:10px 26px;
+  border-radius:20px;
+  cursor:pointer;
+}
+.card-body button:hover{opacity:.85}
+
+/* FOOTER */
+footer{
+  background:var(--yellow-pastel);
+  color:var(--green);
+  text-align:center;
+  padding:30px 20px;
+  font-size:13px;
+}
+footer .socials a{
+  color:var(--green);
+  margin:0 10px;
+  font-size:18px;
+  text-decoration:none;
+}
+footer .socials a:hover{color:var(--yellow);}
+footer .footer-links a{
+  color:var(--green);
+  margin:0 10px;
+  text-decoration:none;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  z-index:2000;
+  left:0;top:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.6);
+}
+.modal-content{
+  background:#fff;
+  margin:5% auto;
+  padding:30px;
+  border-radius:10px;
+  max-width:600px;
+}
+.close{float:right;font-size:24px;cursor:pointer;}
+
+@media(max-width:768px){
+  .hero-box h1{font-size:28px;}
+  nav a{margin-left:15px;}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="navbar">
+    <div class="logo">
+      <img src="logo.jpg" alt="Kek & Hutan"> Kek & Hutan
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-box">
+    <h1>Plan Your Perfect Event</h1>
+    <p>Birthday Party · Hi-Tea · Reunion with Kek & Hutan</p>
+    <div class="hero-tabs">
+      <button class="active" onclick="showEvent('birthday',this)">Birthday Party</button>
+      <button onclick="showEvent('hitea',this)">Hi-Tea / Reunion</button>
+    </div>
+  </div>
+</div>
+
+<!-- BIRTHDAY -->
+<section id="birthday">
+  <div class="container">
+    <div class="section-title"><h2>Birthday Party Packages</h2></div>
+    <div class="grid">
+      <div class="card">
+        <img src="images/basicbirth.png">
+        <div class="card-body">
+          <h3>Basic Party</h3>
+          <p>A simple and cheerful birthday setup, perfect for casual celebrations with family and friends in a relaxed setting.</p>
+          <button onclick="reserve('Basic Party','birthday')">Reservation</button>
+        </div>
+      </div>
+      <div class="card">
+        <img src="images/aestheticbirth.png">
+        <div class="card-body">
+          <h3>Aesthetic Party</h3>
+          <p>A beautifully styled birthday celebration with coordinated décor and a charming atmosphere, ideal for photo-worthy moments</p>
+          <button onclick="reserve('Aesthetic Party','birthday')">Reservation</button>
+        </div>
+      </div>
+      <div class="card">
+        <img src="images/luxurybirth.png">
+        <div class="card-body">
+          <h3>Premium Party</h3>
+          <p>An elevated birthday experience featuring refined styling and exclusive details, created for a truly memorable celebration</p>
+          <button onclick="reserve('Premium Party','birthday')">Reservation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HI-TEA -->
+<section id="hitea" style="display:none">
+  <div class="container">
+    <div class="section-title"><h2>Hi-Tea / Reunion Packages</h2></div>
+    <div class="grid">
+      <div class="card">
+        <img src="images/basichitea.png">
+        <div class="card-body">
+          <h3>Casual Gathering</h3>
+          <p>A cozy and relaxed hi-tea experience with natural café vibes, perfect for small gatherings and friendly catch-ups</p>
+          <button onclick="reserve('Casual Gathering','hitea')">Reservation</button>
+        </div>
+      </div>
+      <div class="card">
+        <img src="images/aesthetichitea.png">
+        <div class="card-body">
+          <h3>Elegant Hi-Tea</h3>
+          <p>A refined hi-tea setting with soft colours and classic details, ideal for graceful celebrations and special occasions</p>
+          <button onclick="reserve('Elegant Hi-Tea','hitea')">Reservation</button>
+        </div>
+      </div>
+      <div class="card">
+        <img src="images/luxuryhitea.png">
+        <div class="card-body">
+          <h3>Luxury Reunion</h3>
+          <p>A luxurious long-table hi-tea experience designed for exclusive reunions and memorable celebrations</p>
+          <button onclick="reserve('Luxury Reunion','hitea')">Reservation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="socials">
+    <a href="https://www.instagram.com/kekdanhutan" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@kekdanhutan" target="_blank"><i class="fab fa-tiktok"></i></a>
+  </div>
+
+  <div class="footer-links">
+    <a href="#" onclick="openModal('privacy')">Privacy & Policy</a> ·
+    <a href="#" onclick="openModal('terms')">Terms & Conditions</a>
+  </div>
+  <div>© 2026 Kek & Hutan · For Educational Purpose Only</div>
+
+  <div id="datetime" style="margin-top:8px;"></div>
+
+</footer>
+
+<div id="privacy" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('privacy')">&times;</span>
+    <h2>Privacy & Policy</h2>
+
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>Personal Information</strong><br>
+        Kek & Hutan respects your privacy. Any personal information such as name, email address, or feedback provided through our website will be kept confidential.
+      </li><br>
+
+      <li><strong>Use of Information</strong><br>
+        Information collected is used only to improve our services, respond to customer enquiries, and enhance customer experience.
+      </li><br>
+
+      <li><strong>Cookies</strong><br>
+        Our website may use cookies to improve functionality and user experience. Cookies do not store personal data.
+      </li><br>
+    </ul>
+  </div>
+</div>
+
+<div id="terms" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('terms')">&times;</span>
+    <h2>Terms & Conditions</h2>
+
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>General</strong><br>
+        By accessing this website or visiting Kek & Hutan café, you agree to comply with the terms and conditions stated here.
+      </li><br>
+
+      <li><strong>Content Accuracy</strong><br>
+        All information on this website is provided for general purposes only. Kek & Hutan reserves the right to update menu items, prices, or content without prior notice.
+      </li><br>
+
+      <li><strong>Governing Law</strong><br>
+        These terms are governed by the laws of Malaysia.
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<script>
+function reserve(packageName,eventType){
+  localStorage.setItem('reservCart', JSON.stringify({name: packageName, type: eventType}));
+  window.location.href='checkoutreserv.html';
+}
+function showEvent(type,btn){
+  document.getElementById('birthday').style.display = type==='birthday'?'block':'none';
+  document.getElementById('hitea').style.display = type==='hitea'?'block':'none';
+  document.querySelectorAll('.hero-tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function openModal(id){document.getElementById(id).style.display='block';}
+function closeModal(id){document.getElementById(id).style.display='none';}
+</script>
+<script>
+function updateDateTime(){
+  const now = new Date();
+
+  const date = now.toLocaleDateString('en-MY', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  const time = now.toLocaleTimeString('en-MY', {
+    hour: 'numeric',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  });
+
+  document.getElementById("datetime").innerText = date + " | " + time;
+}
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
+</script>
+
+
+</body>
+</html>

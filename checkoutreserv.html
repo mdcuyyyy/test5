@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kek & Hutan | Checkout Reservation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --green:#6F8F5A;
+  --yellow:#F2C94C;
+  --yellow-pastel:#F6E7A6;
+  --cream:#F5F1E8;
+  --dark:#333;
+}
+
+/* RESET & BODY */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--green);
+  color:var(--dark);
+  padding-top:80px;
+}
+
+/* NAVBAR */
+header{
+  position:fixed; top:0; width:100%; background:var(--yellow-pastel); z-index:1000;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+.navbar{
+  max-width:1200px; margin:auto; display:flex; justify-content:space-between; align-items:center; padding:15px 20px;
+}
+.logo{
+  display:flex; align-items:center; font-family:'Playfair Display',serif; font-size:25px; color:var(--green);
+}
+.logo img{width:40px;margin-right:10px;}
+nav a{
+  margin-left:25px; text-decoration:none; color:var(--green); font-size:14px;
+}
+nav a.active{color:var(--yellow); font-weight:500;}
+nav a:hover{color:var(--yellow);}
+
+/* CONTAINER */
+.container{
+  max-width:800px;
+  margin:140px auto 50px;
+  padding:30px;
+  background:var(--cream);
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* HEADINGS */
+h2{text-align:center;font-family:'Playfair Display',serif;margin-bottom:25px;color:var(--green);}
+h3{font-family:'Playfair Display',serif;margin-bottom:12px;color:var(--green);}
+
+/* FORM */
+.form-group{margin-bottom:18px;}
+label{display:block;font-size:14px;margin-bottom:6px;}
+input, select{
+  width:100%;
+  padding:12px;
+  border-radius:15px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
+button{
+  width:100%;
+  background:var(--yellow);
+  border:none;
+  padding:12px;
+  border-radius:20px;
+  font-size:14px;
+  cursor:pointer;
+  font-weight:500;
+}
+button:hover{opacity:.9;}
+
+/* SUMMARY BOX */
+.summary-box{
+  background:#fff;
+  border-radius:15px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+.summary-box p{margin-bottom:10px; font-size:14px;}
+.summary-box .total{font-weight:600; font-size:16px; color:var(--green);}
+
+/* PAYMENT SECTION */
+.payment-section{
+  margin-top:15px;
+  background:var(--yellow-pastel);
+  padding:15px;
+  border-radius:15px;
+}
+.payment-section label{font-size:14px;}
+.payment-section select,input{margin-bottom:12px;}
+
+/* LOADING */
+#loading{display:none; text-align:center; margin-top:20px; font-size:14px; color:var(--green);}
+
+/* FOOTER */
+footer{
+  background:var(--yellow-pastel);
+  color:var(--green);
+  text-align:center;
+  padding:30px 20px;
+  font-size:13px;
+}
+footer .socials a{color:var(--green);margin:0 10px;font-size:18px;text-decoration:none;}
+footer .socials a:hover{color:var(--yellow);}
+footer .footer-links a{color:var(--green);margin:0 10px;text-decoration:none;}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  z-index:2000;
+  left:0;top:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.6);
+}
+.modal-content{
+  background:#fff;
+  margin:5% auto;
+  padding:30px;
+  border-radius:10px;
+  max-width:600px;
+}
+.close{float:right;font-size:24px;cursor:pointer;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .container{margin:160px 20px 50px;}
+  nav a{margin-left:15px;}
+}
+
+.summary-box table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+  margin-top:10px;
+}
+.summary-box th, .summary-box td{
+  border:1px solid #ccc;
+  padding:10px;
+  text-align:left;
+}
+.summary-box th{
+  background:var(--yellow-pastel);
+  font-weight:600;
+  width:45%;
+}
+.summary-box td{
+  background:#fff;
+}
+.summary-box tr td:last-child{
+  text-align:right;
+  font-weight:500;
+  color:var(--green);
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="logo">
+      <img src="logo.jpg" alt="Kek & Hutan">
+      Kek & Hutan
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="services.html">Services</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <h2>Checkout Reservation</h2>
+
+  <!-- CUSTOMER INFO -->
+  <div class="form-group">
+    <label>Full Name</label>
+    <input type="text" id="cname" placeholder="Your name">
+  </div>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" id="cemail" placeholder="Your email">
+  </div>
+  <div class="form-group">
+    <label>Phone Number</label>
+    <input type="text" id="cphone" placeholder="Phone number">
+  </div>
+  <div class="form-group">
+    <label>Event Date</label>
+    <input type="date" id="edate">
+  </div>
+  <div class="form-group">
+    <label>Number of Pax</label>
+    <select id="epax">
+      <option value="10">10 Pax</option>
+      <option value="20">20 Pax</option>
+      <option value="30">30 Pax</option>
+      <option value="50">50 Pax</option>
+    </select>
+  </div>
+
+  <div class="summary-box">
+  <h3>Reservation Summary</h3>
+  <table class="summary-table">
+    <tbody>
+      <tr><th>Package</th><td id="sumPackage"></td></tr>
+      <tr><th>Event Type</th><td id="sumType"></td></tr>
+      <tr><th>Pax</th><td id="sumPax"></td></tr>
+      <tr><th>Total Price (RM)</th><td id="sumTotal"></td></tr>
+      <tr><th>Deposit (25%) (RM)</th><td id="sumDeposit"></td></tr>
+      <tr><th>Balance (RM)</th><td id="sumBalance"></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+  <!-- PAYMENT -->
+  <div class="payment-section">
+    <h3>Online Payment</h3>
+    <div class="form-group">
+      <label>Select Bank</label>
+      <select id="bank">
+        <option value="CIMB">CIMB</option>
+        <option value="Maybank">Maybank</option>
+        <option value="Public Bank">Public Bank</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Card Number</label>
+      <input type="text" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX">
+    </div>
+    <div class="form-group">
+      <label>Expiry Date</label>
+      <input type="text" id="exp" placeholder="MM/YY">
+    </div>
+    <div class="form-group">
+      <label>CVV</label>
+      <input type="text" id="cvv" placeholder="123">
+    </div>
+  </div>
+
+  <button onclick="processReservation()">Confirm & Pay Deposit</button>
+  <div id="loading">Processing payment... Please wait.</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="socials">
+    <a href="https://www.instagram.com/kekdanhutan" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@kekdanhutan" target="_blank"><i class="fab fa-tiktok"></i></a>
+  </div>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('privacy')">Privacy & Policy</a> ·
+    <a href="#" onclick="openModal('terms')">Terms & Conditions</a>
+  </div>
+   <div>© 2026 Kek & Hutan · For Educational Purpose Only</div>
+  <div id="datetime" style="margin-top:8px;"></div>
+</footer>
+
+<!-- MODALS -->
+<div id="privacy" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('privacy')">&times;</span>
+    <h2>Privacy & Policy</h2>
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>Personal Information</strong><br>
+        Kek & Hutan respects your privacy. Any personal information such as name, email, or feedback will be kept confidential.
+      </li><br>
+      <li><strong>Use of Information</strong><br>
+        Information collected is used only to improve our services and respond to customer enquiries.
+      </li><br>
+      <li><strong>Cookies</strong><br>
+        Our website may use cookies to improve functionality. Cookies do not store personal data.
+      </li><br>
+    </ul>
+  </div>
+</div>
+
+<div id="terms" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('terms')">&times;</span>
+    <h2>Terms & Conditions</h2>
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>General</strong><br>
+        By accessing this website or visiting Kek & Hutan café, you agree to comply with the terms and conditions stated here.
+      </li><br>
+      <li><strong>Content Accuracy</strong><br>
+        All information is provided for general purposes. Kek & Hutan may update items or prices without notice.
+      </li><br>
+      <li><strong>Governing Law</strong><br>
+        These terms are governed by the laws of Malaysia.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// Load reservation from localStorage
+const reserv = JSON.parse(localStorage.getItem('reservCart'));
+if(!reserv){ alert('No package selected'); window.location.href='services.html'; }
+
+const priceTable = {
+  birthday:{
+    "Basic Party":{10:300,20:550,30:780,50:1200},
+    "Aesthetic Party":{10:450,20:780,30:1100,50:1650},
+    "Premium Party":{10:650,20:1100,30:1500,50:2200}
+  },
+  hitea:{
+    "Casual Gathering":{10:280,20:500,30:720,50:1100},
+    "Elegant Hi-Tea":{10:420,20:750,30:1050,50:1600},
+    "Luxury Reunion":{10:620,20:1050,30:1450,50:2100}
+  }
+};
+
+const epax = document.getElementById('epax');
+const sumPackage = document.getElementById('sumPackage');
+const sumType = document.getElementById('sumType');
+const sumPax = document.getElementById('sumPax');
+const sumTotal = document.getElementById('sumTotal');
+const sumDeposit = document.getElementById('sumDeposit');
+const sumBalance = document.getElementById('sumBalance');
+
+function updateSummary(){
+  const pax = epax.value;
+  const total = priceTable[reserv.type][reserv.name][pax];
+  const deposit = (total*0.25).toFixed(2);
+  const balance = (total - deposit).toFixed(2);
+
+  sumPackage.innerText = reserv.name;
+  sumType.innerText = reserv.type === 'birthday' ? 'Birthday Party' : 'Hi-Tea / Reunion';
+  sumPax.innerText = pax;
+  sumTotal.innerText = total;
+  sumDeposit.innerText = deposit;
+  sumBalance.innerText = balance;
+}
+epax.addEventListener('change', updateSummary);
+updateSummary();
+
+function processReservation(){
+  const name = document.getElementById('cname').value;
+  const email = document.getElementById('cemail').value;
+  const phone = document.getElementById('cphone').value;
+  const date = document.getElementById('edate').value;
+  const bank = document.getElementById('bank').value;
+  const cardNumber = document.getElementById('cardNumber').value;
+
+  if(!name || !email || !phone || !date || !cardNumber){
+    alert("Please fill all fields");
+    return;
+  }
+
+  const pax = epax.value;
+  const total = priceTable[reserv.type][reserv.name][pax];
+  const deposit = (total*0.25).toFixed(2);
+  const balance = (total - deposit).toFixed(2);
+
+  const confirmedReservation = {
+    package: reserv.name,
+    type: reserv.type,
+    date: date,
+    pax: pax,
+    name: name,
+    email: email,
+    phone: phone,
+    total: total,
+    deposit: deposit,
+    balance: balance,
+    bank: bank,
+    cardNumber: cardNumber
+  };
+
+  document.getElementById('loading').style.display = 'block';
+  setTimeout(()=>{
+    localStorage.setItem('confirmedReservation', JSON.stringify(confirmedReservation));
+    window.location.href='receiptreserv.html';
+  },2000);
+}
+
+// Modal functions
+function openModal(id){document.getElementById(id).style.display='block';}
+function closeModal(id){document.getElementById(id).style.display='none';}
+
+// Date & Time
+function updateDateTime(){
+  const now = new Date();
+  const date = now.toLocaleDateString('en-MY', {day:'2-digit', month:'long', year:'numeric'});
+  const time = now.toLocaleTimeString('en-MY', {hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true});
+  document.getElementById("datetime").innerText = date + " | " + time;
+}
+updateDateTime();
+setInterval(updateDateTime, 1000);
+</script>
+
+</body>
+</html>

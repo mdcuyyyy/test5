@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kek & Hutan | Reservation Receipt</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --green:#6F8F5A;
+  --yellow:#F2C94C;
+  --yellow-pastel:#F6E7A6;
+  --cream:#F5F1E8;
+  --dark:#333;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--green);color:var(--dark);padding-top:80px;}
+
+.container{
+  max-width:800px;
+  margin:140px auto 50px;
+  padding:30px;
+  background:var(--cream);
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* HEADER */
+header.receipt-header{
+  display:flex;
+  align-items:center;
+  margin-bottom:20px;
+}
+header.receipt-header img{width:60px;margin-right:15px;border-radius:10px;}
+header.receipt-header .shop-info h1{
+  font-family:'Playfair Display',serif;
+  font-size:26px;
+  color:var(--green);
+}
+header.receipt-header .shop-info p{font-size:14px;color:#555;}
+
+h2{text-align:center;font-family:'Playfair Display',serif;margin-bottom:25px;color:var(--green);}
+h3{font-family:'Playfair Display',serif;margin-bottom:12px;color:var(--green);}
+
+/* Table */
+.details-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px;
+  font-size:14px;
+  font-family:'Poppins',sans-serif;
+}
+.details-table th{
+  width:35%;
+  background:var(--green);
+  color:#fff;
+  font-weight:600;
+  text-align:left;
+  padding:10px;
+}
+.details-table td{
+  background:#fff;
+  padding:10px;
+  font-weight:400;
+  color:var(--dark);
+}
+.details-table td span{
+  color:var(--green);
+  font-weight:500;
+}
+
+/* Button */
+.back-home-btn{
+  padding:10px 25px;
+  background:var(--yellow);
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:500;
+}
+.back-home-btn:hover{opacity:.9;}
+
+/* Footer */
+footer{
+  background:var(--yellow-pastel);
+  color:var(--green);
+  text-align:center;
+  padding:30px 20px;
+  font-size:13px;
+  font-family:'Poppins',sans-serif;
+}
+footer .socials a{
+  color:var(--green);
+  margin:0 10px;
+  font-size:18px;
+  text-decoration:none;
+}
+footer .socials a:hover{color:var(--yellow);}
+footer .footer-links a{
+  color:var(--green);
+  margin:0 10px;
+  text-decoration:none;
+}
+
+/* Modal */
+.modal{display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.6);}
+.modal-content{background:#fff;margin:5% auto;padding:30px;border-radius:10px;max-width:600px;}
+.close{float:right;font-size:24px;cursor:pointer;}
+
+@media(max-width:768px){
+  .container{margin:160px 20px 50px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <header class="receipt-header">
+    <img src="logo.jpg" alt="Kek & Hutan Logo">
+    <div class="shop-info">
+      <h1>Kek & Hutan</h1>
+      <p>📍 S/11, 562, Jalan Temenggung, Bandar Kota Bharu, 15000 Kota Bharu, Kelantan, Malaysia</p>
+      <p>Nature Inspired Café</p>
+    </div>
+  </header>
+
+  <h2>Reservation Receipt</h2>
+
+  <div class="summary-box">
+    <h3>Reservation Details</h3>
+    <table class="details-table">
+      <tr><th>Customer Name</th><td id="rName"></td></tr>
+      <tr><th>Email</th><td id="rEmail"></td></tr>
+      <tr><th>Phone</th><td id="rPhone"></td></tr>
+      <tr><th>Package</th><td id="rPackage"></td></tr>
+      <tr><th>Event Type</th><td id="rType"></td></tr>
+      <tr><th>Event Date</th><td id="rDate"></td></tr>
+      <tr><th>Pax</th><td id="rPax"></td></tr>
+      <tr><th>Total Price</th><td>RM <span id="rTotal"></span></td></tr>
+      <tr><th>Deposit (25%)</th><td>RM <span id="rDeposit"></span></td></tr>
+      <tr><th>Balance</th><td>RM <span id="rBalance"></span></td></tr>
+      <tr><th>Bank</th><td id="rBank"></td></tr>
+      <tr><th>Card Ending</th><td>**** **** **** <span id="rCardEnd"></span></td></tr>
+    </table>
+  </div>
+
+  <p style="text-align:center;margin-top:20px;color:#555;font-size:14px;">
+    Thank you for your reservation! You will be redirected to Home in <span id="countdown">15</span> seconds.
+  </p>
+
+  <div style="text-align:center; margin-top:15px;">
+    <button class="back-home-btn" onclick="goHome()">Back to Home</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="socials">
+    <a href="https://www.instagram.com/kekdanhutan" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@kekdanhutan" target="_blank"><i class="fab fa-tiktok"></i></a>
+  </div>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('privacy')">Privacy & Policy</a> ·
+    <a href="#" onclick="openModal('terms')">Terms & Conditions</a>
+  </div>
+    <div>© 2026 Kek & Hutan · For Educational Purpose Only</div>
+  <div id="datetime" style="margin-top:8px;"></div>
+</footer>
+
+<!-- Modal Privacy & Terms -->
+<div id="privacy" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('privacy')">&times;</span>
+    <h2>Privacy & Policy</h2>
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>Personal Information</strong><br>
+        Kek & Hutan respects your privacy. Any personal information such as name, email address, or feedback provided through our website will be kept confidential.
+      </li><br>
+      <li><strong>Use of Information</strong><br>
+        Information collected is used only to improve our services, respond to customer enquiries, and enhance customer experience.
+      </li><br>
+      <li><strong>Cookies</strong><br>
+        Our website may use cookies to improve functionality and user experience. Cookies do not store personal data.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="terms" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('terms')">&times;</span>
+    <h2>Terms & Conditions</h2>
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>General</strong><br>
+        By accessing this website or visiting Kek & Hutan café, you agree to comply with the terms and conditions stated here.
+      </li><br>
+      <li><strong>Content Accuracy</strong><br>
+        All information on this website is provided for general purposes only. Kek & Hutan reserves the right to update menu items, prices, or content without prior notice.
+      </li><br>
+      <li><strong>Governing Law</strong><br>
+        These terms are governed by the laws of Malaysia.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// Load confirmed reservation
+const resv = JSON.parse(localStorage.getItem('confirmedReservation')) || {};
+if(!resv){
+  alert("No confirmed reservation found");
+  window.location.href="services.html";
+}
+
+// Populate receipt table
+document.getElementById('rName').innerText = resv.name;
+document.getElementById('rEmail').innerText = resv.email;
+document.getElementById('rPhone').innerText = resv.phone;
+document.getElementById('rPackage').innerText = resv.package;
+document.getElementById('rType').innerText = resv.type==='birthday'?'Birthday Party':'Hi-Tea / Reunion';
+document.getElementById('rDate').innerText = resv.date;
+document.getElementById('rPax').innerText = resv.pax;
+document.getElementById('rTotal').innerText = resv.total;
+document.getElementById('rDeposit').innerText = resv.deposit;
+document.getElementById('rBalance').innerText = resv.balance;
+document.getElementById('rBank').innerText = resv.bank;
+document.getElementById('rCardEnd').innerText = resv.cardNumber.slice(-4);
+
+// Countdown
+function goHome(){ window.location.href='home.html'; }
+let countdown = 15;
+const cdEl = document.getElementById('countdown');
+const interval = setInterval(()=>{
+  countdown--;
+  cdEl.innerText = countdown;
+  if(countdown<=0){
+    clearInterval(interval);
+    window.location.href='home.html';
+  }
+},1000);
+
+// Modal
+function openModal(id){document.getElementById(id).style.display='block';}
+function closeModal(id){document.getElementById(id).style.display='none';}
+
+// Date/Time
+function updateDateTime(){
+  const now = new Date();
+  const date = now.toLocaleDateString('en-MY', { day:'2-digit', month:'long', year:'numeric' });
+  const time = now.toLocaleTimeString('en-MY', { hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true });
+  document.getElementById("datetime").innerText = date + " | " + time;
+}
+updateDateTime();
+setInterval(updateDateTime,1000);
+</script>
+
+</body>
+</html>

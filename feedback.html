@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kek & Hutan | Feedback</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300,400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --green:#6F8F5A;
+  --yellow:#F2C94C;
+  --yellow-pastel:#F6E7A6;
+  --dark:#333;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--green);color:var(--dark); padding-top:80px;}
+
+/* NAV */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:var(--yellow-pastel);
+  z-index:1000;
+}
+.navbar{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 20px;
+}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:25px;
+  display:flex;
+  align-items:center;
+  color: var(--green);
+}
+.logo img{width:40px;margin-right:10px;}
+nav a{
+  margin-left:25px;text-decoration:none;
+  color:var(--green);
+  font-size:14px;
+}
+nav a:hover{color:var(--yellow);}
+
+/* HERO */
+.hero{
+  position: relative;
+  height: 45vh;
+  background: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), 
+              url("images/DEPAN.jpg") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#fff;
+   margin-top: -30px; /* tarik hero naik ke atas */
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:45px;
+  color:var(--yellow);
+}
+.hero p{margin:15px 0 30px;}
+
+/* SECTION */
+section{padding:90px 20px;}
+.container{max-width:1200px;margin:auto;}
+
+/* FEEDBACK FORM */
+.feedback-form{
+  max-width:700px;
+  margin:50px auto;
+  background:var(--yellow-pastel);
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+.feedback-form h3{
+  font-family:'Playfair Display',serif;
+  font-size:28px;
+  color:var(--green);
+  margin-bottom:20px;
+  text-align:center;
+}
+.feedback-form input,
+.feedback-form textarea,
+.feedback-form button{
+  width:100%;
+  padding:12px 15px;
+  margin-bottom:15px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:16px;
+  font-family:'Poppins',sans-serif;
+}
+.feedback-form textarea{resize:none; min-height:120px;}
+.feedback-form input:focus,.feedback-form textarea:focus{border-color:var(--green);outline:none;}
+.feedback-form button{
+  background:var(--yellow);
+  color:#2F2F2F;
+  border:none;
+  font-weight:500;
+  cursor:pointer;
+  transition:0.3s ease;
+}
+.feedback-form button:hover{background:#e6b933;}
+
+/* Star Rating */
+.star-rating{display:flex;flex-direction:row-reverse;justify-content:center;margin-bottom:15px;}
+.star-rating input{display:none;}
+.star-rating label{font-size:30px;color:#ccc;padding:0 5px;cursor:pointer;transition:color 0.2s;}
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label{color:#FFD700;}
+
+/* Feedback cards with numbering */
+.feedback-container{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:25px;
+  padding-bottom:50px;
+  list-style:none;
+  padding-left:0;
+}
+.feedback-card{
+  background:#fff;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.15);
+  position:relative;
+}
+.review-number{
+  font-weight:700;
+  font-size:18px;
+  color:var(--green);
+  margin-bottom:5px;
+}
+.customer-name{
+  font-weight:700;font-size:18px;color:var(--green); margin-bottom:5px;
+}
+.feedback-date{font-size:14px;margin-bottom:10px;color:#000;}
+.feedback-text{font-size:16px;line-height:1.5;margin-top:5px;color:#000;}
+.rating{margin-top:10px;color:#FFD700;font-size:18px;}
+
+#loadMoreBtn{
+  display:block;
+  margin:20px auto;
+  padding:12px 25px;
+  border:none;
+  background:var(--yellow);
+  color:#2F2F2F;
+  font-weight:500;
+  cursor:pointer;
+  border-radius:10px;
+  transition:0.3s ease;
+}
+#loadMoreBtn:hover{background:#e6b933;}
+
+/* FOOTER */
+footer{
+  background:var(--yellow-pastel);
+  color:var(--green);
+  text-align:center;
+  padding:30px 20px;
+  font-size:13px;
+}
+footer .socials a{color:var(--green);margin:0 10px;font-size:18px;text-decoration:none;}
+footer .socials a:hover{color:var(--yellow);}
+footer .footer-links a{color:var(--green);margin:0 10px;text-decoration:none;}
+
+/* MODAL */
+.modal{display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.6);}
+.modal-content{background:#fff;margin:5% auto;padding:30px;border-radius:10px;max-width:600px;}
+.close{float:right;font-size:24px;cursor:pointer;}
+
+@media(max-width:768px){
+  .hero h1{font-size:40px;}
+  .feedback-card,.feedback-form{padding:15px;}
+}
+
+<style>
+.elfsight-app-cb3cbd37-1596-41d3-b3b1-6c7b2f1b13a9 {
+    max-width: 800px;   /* adjust ikut design */
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+@media(max-width:768px){
+  .elfsight-app-cb3cbd37-1596-41d3-b3b1-6c7b2f1b13a9 {
+    max-width: 95%;
+  }
+}
+
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="logo">
+      <img src="logo.jpg"> Kek & Hutan
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="services.html">Services</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div>
+    <h1>Reviews Kek & Hutan</h1>
+    <p>We value your feedback!</p>
+  </div>
+</div>
+
+<section class="feedback-form">
+  <h3>Give Your Feedback</h3>
+  <form id="feedbackForm">
+    <div class="star-rating">
+      <input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label>
+      <input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label>
+      <input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label>
+      <input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label>
+      <input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label>
+    </div>
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Your Feedback" required></textarea>
+    <button type="submit">Submit Feedback</button>
+  </form>
+</section>
+
+<section class="elfsight-reviews" style="padding:60px 20px; background:#F6E7A6;">
+  <div class="container">
+    <h3 style="text-align:center; color:#6F8F5A; font-family:'Playfair Display',serif; margin-bottom:40px;">
+      What People Say About Us 🌿
+    </h3>
+    
+    <!-- Elfsight Widget -->
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+    <div class="elfsight-app-cb3cbd37-1596-41d3-b3b1-6c7b2f1b13a9" data-elfsight-app-lazy></div>
+  </div>
+</section>
+
+
+
+
+<section>
+  <ol class="feedback-container" id="feedbackContainer"></ol>
+  <button id="loadMoreBtn">Load More Reviews</button>
+</section>
+
+<footer>
+  <div class="socials">
+    <a href="https://www.instagram.com/kekdanhutan" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@kekdanhutan" target="_blank"><i class="fab fa-tiktok"></i></a>
+  </div>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('privacy')">Privacy & Policy</a> ·
+    <a href="#" onclick="openModal('terms')">Terms & Conditions</a>
+  </div>
+  <div>© 2026 Kek & Hutan · For Educational Purpose Only</div>
+  <div id="datetime" style="margin-top:8px;"></div>
+</footer>
+
+<div id="privacy" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('privacy')">&times;</span>
+    <h2>Privacy & Policy</h2>
+
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>Personal Information</strong><br>
+        Kek & Hutan respects your privacy. Any personal information such as name, email address, or feedback provided through our website will be kept confidential.
+      </li><br>
+
+      <li><strong>Use of Information</strong><br>
+        Information collected is used only to improve our services, respond to customer enquiries, and enhance customer experience.
+      </li><br>
+
+      <li><strong>Cookies</strong><br>
+        Our website may use cookies to improve functionality and user experience. Cookies do not store personal data.
+      </li><br>
+    </ul>
+  </div>
+</div>
+
+<div id="terms" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('terms')">&times;</span>
+    <h2>Terms & Conditions</h2>
+
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>General</strong><br>
+        By accessing this website or visiting Kek & Hutan café, you agree to comply with the terms and conditions stated here.
+      </li><br>
+
+      <li><strong>Content Accuracy</strong><br>
+        All information on this website is provided for general purposes only. Kek & Hutan reserves the right to update menu items, prices, or content without prior notice.
+      </li><br>
+
+      <li><strong>Governing Law</strong><br>
+        These terms are governed by the laws of Malaysia.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// Modal
+function openModal(id){document.getElementById(id).style.display='block';}
+function closeModal(id){document.getElementById(id).style.display='none';}
+
+// Date & Time
+function updateDateTime(){
+  const now=new Date();
+  const date=now.toLocaleDateString('en-MY',{day:'2-digit',month:'long',year:'numeric'});
+  const time=now.toLocaleTimeString('en-MY',{hour:'numeric',minute:'2-digit',second:'2-digit',hour12:true});
+  document.getElementById("datetime").innerText = date + " | " + time;
+}
+updateDateTime();
+setInterval(updateDateTime,1000);
+
+// Default review array
+const defaultReviews = [
+  {name:"Amir H.", date:"Dec 20, 2025", text:"Kek Lapis is simply divine! The layers are perfect and moist.", rating:5},
+  {name:"Aisyah R.", date:"Nov 15, 2025", text:"Absolutely loved the Kek Lapis. The aroma and taste are heavenly.", rating:5},
+  {name:"Hafiz W.", date:"Oct 30, 2025", text:"Best Kek Lapis I have ever tried. Soft, sweet, and delicious.", rating:5},
+  {name:"Nurul K.", date:"Sep 12, 2025", text:"Kek Lapis exceeded my expectations. Highly recommend for gifts!", rating:5},
+  {name:"Farah P.", date:"Aug 8, 2025", text:"Great service and amazing Kek Lapis. Will order again.", rating:5},
+  {name:"Irfan H.", date:"Jul 22, 2025", text:"Perfectly baked Kek Lapis. Loved the layering and taste.", rating:5},
+  {name:"Siti M.", date:"Jun 18, 2025", text:"Kek Lapis is my favorite now! So soft and flavorful.", rating:5},
+  {name:"Adam D.", date:"May 5, 2025", text:"Friendly staff and relaxing atmosphere. Loved the Kek Lapis.", rating:5},
+  {name:"Aina S.", date:"Apr 20, 2025", text:"Highly recommend the Kek Lapis. Flavorful and soft.", rating:5},
+  {name:"Faris T.", date:"Mar 18, 2025", text:"A hidden gem in KL. Kek Lapis is always fresh.", rating:5},
+  {name:"Maya C.", date:"Feb 28, 2025", text:"Lovely texture and flavor. Kek Lapis is perfect for celebrations.", rating:5},
+  {name:"Danial F.", date:"Jan 15, 2025", text:"The Kek Lapis is excellent. Perfect layers and flavor.", rating:5},
+  {name:"Hana A.", date:"Dec 2, 2024", text:"Delicious Kek Lapis! The aroma and texture are perfect.", rating:5},
+  {name:"Zulkifli H.", date:"Nov 12, 2024", text:"Kek Lapis is heavenly. Great for celebrations and gifts.", rating:5},
+  {name:"Aminah B.", date:"Oct 20, 2024", text:"Absolutely delicious Kek Lapis. Fresh and moist.", rating:5},
+  {name:"Rizal J.", date:"Sep 5, 2024", text:"Kek Lapis layers are perfect. Very satisfied!", rating:5},
+  {name:"Nadia K.", date:"Aug 14, 2024", text:"Tasted the Kek Lapis for the first time. Amazing!", rating:5},
+  {name:"Haziq S.", date:"Jul 2, 2024", text:"Love Kek Lapis! Sweet, soft, and perfect for gifts.", rating:5},
+  {name:"Puteri M.", date:"Jun 10, 2024", text:"Kek Lapis is perfect. Soft, flavorful, and beautifully layered.", rating:5},
+  {name:"Faiz P.", date:"May 25, 2024", text:"Best Kek Lapis in KL. Layers are moist and delicious.", rating:5},
+  {name:"Sarah L.", date:"Apr 30, 2024", text:"Loved the Kek Lapis. Packaging and taste are excellent.", rating:5},
+  {name:"Azlan D.", date:"Mar 15, 2024", text:"Kek Lapis is soft and perfectly sweet. Highly recommend.", rating:5},
+  {name:"Sabrina H.", date:"Feb 22, 2024", text:"Delicious Kek Lapis. Friendly staff and great service.", rating:5},
+  {name:"Hakim W.", date:"Jan 8, 2024", text:"Amazing Kek Lapis. Soft layers, sweet, and perfect texture.", rating:5},
+  {name:"Intan R.", date:"Dec 20, 2024", text:"Kek Lapis exceeded my expectations. Beautifully made.", rating:5},
+  {name:"Firdaus M.", date:"Nov 7, 2024", text:"Perfect Kek Lapis! Fresh, tasty, and great for gifts.", rating:5},
+  {name:"Liyana P.", date:"Oct 12, 2024", text:"Highly recommend Kek Lapis. Flavor is amazing.", rating:5},
+  {name:"Syafiq K.", date:"Sep 1, 2024", text:"Loved the Kek Lapis. Soft and perfectly sweet.", rating:5},
+  {name:"Nadiah N.", date:"Aug 18, 2024", text:"Kek Lapis is superb. The flavor and texture are perfect.", rating:5},
+  {name:"Shafiq S.", date:"Jul 5, 2024", text:"Kek Lapis was beautifully layered and delicious.", rating:5},
+  {name:"Hafiza F.", date:"Jun 22, 2024", text:"Kek Lapis taste is perfect. Soft, sweet, and moist.", rating:5},
+  {name:"Amir H.", date:"May 12, 2024", text:"Amazing Kek Lapis! Perfect gift for friends and family.", rating:5},
+  {name:"Siti T.", date:"Apr 28, 2024", text:"Delicious Kek Lapis with perfect layering. Highly recommended.", rating:5},
+  {name:"Hadi G.", date:"Mar 10, 2024", text:"Best Kek Lapis experience. Soft, sweet, and beautiful layers.", rating:5},
+  {name:"Zara B.", date:"Feb 5, 2024", text:"Kek Lapis is outstanding. Flavor and texture are perfect.", rating:5},
+  {name:"Naim C.", date:"Jan 20, 2024", text:"Loved the Kek Lapis. Moist, soft, and beautifully presented.", rating:5},
+  {name:"Farah L.", date:"Dec 15, 2024", text:"Kek Lapis is amazing. Sweet, soft, and perfect gift.", rating:5},
+  {name:"Syed J.", date:"Nov 30, 2024", text:"Absolutely love Kek Lapis. Soft, flavorful, and perfect layers.", rating:5},
+  {name:"Mira R.", date:"Oct 18, 2024", text:"Kek Lapis exceeded expectations. Fresh and delicious.", rating:5},
+  {name:"Hakim K.", date:"Sep 2, 2024", text:"Perfect Kek Lapis. Soft, sweet, and moist layers.", rating:5},
+  {name:"Nadiah F.", date:"Aug 10, 2024", text:"Kek Lapis is heavenly. Flavor and texture perfect.", rating:5},
+  {name:"Faizal P.", date:"Jul 23, 2024", text:"Delicious Kek Lapis. Perfect for gifts or personal treat.", rating:5},
+  {name:"Aina S.", date:"Jun 7, 2024", text:"Best Kek Lapis ever! Soft, flavorful, and perfectly layered.", rating:5}
+];
+
+// Load LocalStorage first
+let reviews = JSON.parse(localStorage.getItem("reviews"));
+if(!reviews || reviews.length===0){
+  reviews = defaultReviews;
+  localStorage.setItem("reviews", JSON.stringify(reviews));
+}
+
+let currentIndex=0;
+const reviewsPerLoad=10;
+const container=document.getElementById('feedbackContainer');
+const loadBtn=document.getElementById('loadMoreBtn');
+
+function displayReviews(){
+  const nextIndex=Math.min(currentIndex+reviewsPerLoad,reviews.length);
+  for(let i=currentIndex;i<nextIndex;i++){
+    const r=reviews[i];
+    const stars='★'.repeat(r.rating)+'☆'.repeat(5-r.rating);
+    const number=i+1;
+    container.innerHTML+=`
+    <li class="feedback-card">
+      <div class="review-number">${number}.</div>
+      <div class="customer-name">${r.name}</div>
+      <div class="feedback-date">${r.date}</div>
+      <div class="rating">${stars}</div>
+      <div class="feedback-text">${r.text}</div>
+    </li>`;
+  }
+  currentIndex=nextIndex;
+  if(currentIndex>=reviews.length) loadBtn.style.display='none';
+}
+
+displayReviews();
+loadBtn.addEventListener('click',displayReviews);
+
+document.getElementById('feedbackForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const name=this.name.value;
+  const email=this.email.value;
+  const message=this.message.value;
+  const rating=parseInt(this.rating.value)||5;
+  const today=new Date();
+  const date=today.toLocaleDateString('en-US',{month:'short', day:'numeric', year:'numeric'});
+
+  reviews.unshift({name,email,date,text:message,rating});
+  localStorage.setItem("reviews",JSON.stringify(reviews));
+
+  container.innerHTML='';
+  currentIndex=0;
+  displayReviews();
+  this.reset();
+});
+</script>
+
+</body>
+</html>

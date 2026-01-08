@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kek & Hutan | Receipt</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --green:#6F8F5A;
+  --yellow:#F2C94C;
+  --yellow-pastel:#F6E7A6;
+  --cream:#F5F1E8;
+  --dark:#333;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--green);color:var(--dark);padding-top:80px;}
+
+.container{
+  max-width:800px;
+  margin:140px auto 50px;
+  padding:30px;
+  background:var(--cream);
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* HEADER */
+header.receipt-header{
+  display:flex;
+  align-items:center;
+  margin-bottom:20px;
+}
+header.receipt-header img{width:60px;margin-right:15px;border-radius:10px;}
+header.receipt-header .shop-info h1{
+  font-family:'Playfair Display',serif;
+  font-size:26px;
+  color:var(--green);
+}
+header.receipt-header .shop-info p{font-size:14px;color:#555;}
+
+h2{text-align:center;font-family:'Playfair Display',serif;margin-bottom:25px;color:var(--green);}
+h3{font-family:'Playfair Display',serif;margin-bottom:12px;color:var(--green);}
+
+.summary-box{
+  background:#fff;
+  border-radius:15px;
+  padding:20px;
+  margin-top:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+.summary-box p{margin-bottom:10px;font-size:14px;}
+.summary-box .total{font-weight:600;font-size:16px;color:var(--green);}
+
+.back-home-btn{
+  padding:10px 25px;
+  background:var(--yellow);
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:500;
+}
+.back-home-btn:hover{opacity:.9;}
+
+/* ===== Receipt Table ===== */
+.receipt-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px;
+  font-size:14px;
+}
+.receipt-table th{
+  background:var(--green);
+  color:#fff;
+  font-weight:600;
+  padding:10px;
+}
+.receipt-table td{
+  border:1px solid #ccc;
+  padding:10px;
+  text-align:center;
+}
+.receipt-table td:first-child{
+  text-align:left;
+}
+
+.total{
+  margin-top:15px;
+  text-align:right;
+  font-weight:600;
+  font-size:16px;
+  color:var(--green);
+}
+
+/* Footer sama macam menu/checkout */
+footer{
+  background:var(--yellow-pastel);
+  color:var(--green);
+  text-align:center;
+  padding:30px 20px;
+  font-size:13px;
+  font-family:'Poppins',sans-serif;
+}
+footer .socials a{
+  color:var(--green);
+  margin:0 10px;
+  font-size:18px;
+  text-decoration:none;
+}
+footer .socials a:hover{color:var(--yellow);}
+footer .footer-links a{color:var(--green);margin:0 10px;text-decoration:none;}
+
+/* Modal */
+.modal{display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.6);}
+.modal-content{background:#fff;margin:5% auto;padding:30px;border-radius:10px;max-width:600px;}
+.close{float:right;font-size:24px;cursor:pointer;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <header class="receipt-header">
+    <img src="logo.jpg" alt="Kek & Hutan Logo">
+    <div class="shop-info">
+      <h1>Kek & Hutan</h1>
+      <p>📍 123 Green Lane, Kuala Lumpur, Malaysia</p>
+      <p>Nature Inspired Café</p>
+    </div>
+  </header>
+
+  <h2>Receipt</h2>
+
+  <div class="summary-box">
+    <h3>Order Details</h3>
+    <p><strong>Order ID:</strong> <span id="orderID"></span></p>
+    <p><strong>Order Type:</strong> <span id="orderType"></span></p>
+    <p><strong>Customer Name:</strong> <span id="customerName"></span></p>
+    <p><strong>Email:</strong> <span id="customerEmail"></span></p>
+    <p><strong>Phone:</strong> <span id="customerPhone"></span></p>
+
+    <h3>Items</h3>
+    <table class="receipt-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Price (RM)</th>
+          <th>Total (RM)</th>
+        </tr>
+      </thead>
+      <tbody id="itemsBody"></tbody>
+    </table>
+    <p class="total" id="totalPrice"></p>
+
+    <div id="paymentInfo"></div>
+  </div>
+
+  <p style="text-align:center;margin-top:20px;color:#555;font-size:14px;">
+    You will be redirected to Home in <span id="countdown">15</span> seconds.
+  </p>
+
+  <div style="text-align:center; margin-top:15px;">
+    <button class="back-home-btn" onclick="goHome()">Back to Home</button>
+  </div>
+</div>
+
+<footer>
+  <div class="socials">
+    <a href="https://www.instagram.com/kekdanhutan" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@kekdanhutan" target="_blank"><i class="fab fa-tiktok"></i></a>
+  </div>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('privacy')">Privacy & Policy</a> ·
+    <a href="#" onclick="openModal('terms')">Terms & Conditions</a>
+  </div>
+   <div>© 2026 Kek & Hutan · For Educational Purpose Only</div>
+  <div id="datetime" style="margin-top:8px;"></div>
+</footer>
+
+<!-- Modal Privacy & Terms -->
+<div id="privacy" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('privacy')">&times;</span>
+    <h2>Privacy & Policy</h2>
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>Personal Information</strong><br>
+        Kek & Hutan respects your privacy. Any personal information such as name, email address, or feedback provided through our website will be kept confidential.
+      </li><br>
+      <li><strong>Use of Information</strong><br>
+        Information collected is used only to improve our services, respond to customer enquiries, and enhance customer experience.
+      </li><br>
+      <li><strong>Cookies</strong><br>
+        Our website may use cookies to improve functionality and user experience. Cookies do not store personal data.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="terms" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('terms')">&times;</span>
+    <h2>Terms & Conditions</h2>
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>General</strong><br>
+        By accessing this website or visiting Kek & Hutan café, you agree to comply with the terms and conditions stated here.
+      </li><br>
+      <li><strong>Content Accuracy</strong><br>
+        All information on this website is provided for general purposes only. Kek & Hutan reserves the right to update menu items, prices, or content without prior notice.
+      </li><br>
+      <li><strong>Governing Law</strong><br>
+        These terms are governed by the laws of Malaysia.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// Load order data from localStorage
+const orderData = JSON.parse(localStorage.getItem("lastOrder")) || {};
+
+document.getElementById("orderID").innerText = orderData.orderID || "";
+document.getElementById("orderType").innerText = orderData.orderType || "";
+document.getElementById("customerName").innerText = orderData.name || "";
+document.getElementById("customerEmail").innerText = orderData.email || "";
+document.getElementById("customerPhone").innerText = orderData.phone || "";
+
+const itemsBody = document.getElementById("itemsBody");
+let totalPrice = 0;
+
+(orderData.cart || []).forEach(item=>{
+    const row = document.createElement("tr");
+    const qty = Number(item.qty) || 0;
+    const price = Number(item.price) || 0;
+    totalPrice += qty*price;
+
+    row.innerHTML = `
+      <td>${item.name}</td>
+      <td>${qty}</td>
+      <td>${price.toFixed(2)}</td>
+      <td>${(qty*price).toFixed(2)}</td>
+    `;
+    itemsBody.appendChild(row);
+});
+
+document.getElementById("totalPrice").innerText = `Total: RM ${totalPrice.toFixed(2)}`;
+
+// Payment info
+const paymentDiv = document.getElementById("paymentInfo");
+if(orderData.orderType==="takeaway"){
+    if(orderData.takeawayMethod==="qr"){
+        paymentDiv.innerHTML = "<p><strong>Payment Method:</strong> QR Code</p><p>Please scan QR upon pickup.</p>";
+    } else if(orderData.takeawayMethod==="online"){
+        const last4 = orderData.cardNumber ? orderData.cardNumber.slice(-4) : "XXXX";
+        paymentDiv.innerHTML = `<p><strong>Payment Method:</strong> Online Banking (${orderData.bank})</p>
+                                <p>Card Ending: **** **** **** ${last4}</p>`;
+    }
+} else {
+    paymentDiv.innerHTML = "<p><strong>Payment:</strong> Pay at the counter upon dine-in.</p>";
+}
+
+// Countdown & redirect
+function goHome(){ window.location.href='home.html'; }
+let countdown = 15;
+const cdEl = document.getElementById('countdown');
+const interval = setInterval(()=>{
+  countdown--;
+  cdEl.innerText = countdown;
+  if(countdown<=0){
+    clearInterval(interval);
+    window.location.href='home.html';
+  }
+},1000);
+
+// Modal
+function openModal(id){document.getElementById(id).style.display='block';}
+function closeModal(id){document.getElementById(id).style.display='none';}
+
+// Date/Time
+function updateDateTime(){
+  const now = new Date();
+  const date = now.toLocaleDateString('en-MY', { day:'2-digit', month:'long', year:'numeric' });
+  const time = now.toLocaleTimeString('en-MY', { hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true });
+  document.getElementById("datetime").innerText = date + " | " + time;
+}
+updateDateTime();
+setInterval(updateDateTime,1000);
+</script>
+
+</body>
+</html>

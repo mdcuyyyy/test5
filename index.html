@@ -1,0 +1,208 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kek & Hutan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root { --yellow: #F2C94C; }
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  height:100vh;
+  font-family:'Playfair Display', serif;
+  background:#000;
+}
+
+/* SPLASH */
+.splash{
+  height:100vh;
+  background: linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)),
+              url("images/DEPAN.jpg") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#fff;
+  transition: opacity 1s ease;
+}
+
+.splash.fade-out{ opacity:0; }
+
+.splash h1{
+  font-size:60px;
+  letter-spacing:2px;
+  color: var(--yellow);
+  text-shadow: 0 0 10px rgba(242,201,76,0.8),
+               0 0 20px rgba(242,201,76,0.6);
+}
+
+.splash p{
+  font-family:Poppins,sans-serif;
+  margin:20px 0;
+  letter-spacing:3px;
+  font-size:14px;
+}
+
+.enter{
+  display:inline-block;
+  padding:14px 40px;
+  border:1px solid #fff;
+  color:#fff;
+  text-decoration:none;
+  letter-spacing:3px;
+  font-size:13px;
+  margin-bottom:20px;
+  transition:.3s, box-shadow .3s;
+}
+
+.enter:hover{
+  background: var(--yellow);
+  color:#000;
+  box-shadow: 0 0 15px var(--yellow),
+              0 0 25px var(--yellow);
+}
+
+.socials{ margin-top:25px; }
+.socials a{
+  color:#fff;
+  margin:0 10px;
+  font-size:24px;
+  text-decoration:none;
+  transition:.3s, text-shadow .3s;
+}
+.socials a:hover{
+  color: var(--yellow);
+  text-shadow: 0 0 10px var(--yellow),
+               0 0 20px var(--yellow);
+}
+
+/* MODAL POPUP */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.modal.active{ display:flex; }
+
+.modal-box{
+  background:#111;
+  padding:40px;
+  border:1px solid var(--yellow);
+  text-align:center;
+  width:90%;
+  max-width:400px;
+  color:#fff;
+  animation: zoom .4s ease;
+}
+
+@keyframes zoom{
+  from{ transform:scale(.8); opacity:0; }
+  to{ transform:scale(1); opacity:1; }
+}
+
+.modal-box h2{
+  color:var(--yellow);
+  margin-bottom:10px;
+}
+
+.modal-box p{
+  font-family:Poppins,sans-serif;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.modal-box input{
+  width:100%;
+  padding:12px;
+  background:#000;
+  border:1px solid #555;
+  color:#fff;
+  font-family:Poppins,sans-serif;
+  margin-bottom:20px;
+}
+
+.modal-box button{
+  padding:12px 30px;
+  background:var(--yellow);
+  border:none;
+  font-family:Poppins,sans-serif;
+  letter-spacing:2px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.modal-box button:hover{
+  box-shadow:0 0 15px var(--yellow);
+}
+
+@media(max-width:768px){
+  .splash h1{font-size:38px;}
+  .socials a{font-size:20px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SPLASH -->
+<div class="splash" id="splash">
+  <div>
+    <h1>Kek & Hutan</h1>
+    <p>NATURE INSPIRED CAFÉ</p>
+    <a href="#" class="enter" onclick="openModal()">ENTER</a>
+
+    <div class="socials">
+      <a href="https://www.instagram.com/yourusername" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@yourusername" target="_blank"><i class="fab fa-tiktok"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="nameModal">
+  <div class="modal-box">
+    <h2>Welcome to Kek & Hutan 🌿</h2>
+    <p>Please enter your name to continue</p>
+    <input type="text" id="visitorName" placeholder="Your name">
+    <button onclick="enterSite()">CONTINUE</button>
+  </div>
+</div>
+
+<script>
+function openModal(){
+  document.getElementById("nameModal").classList.add("active");
+}
+
+function enterSite(){
+  const name = document.getElementById("visitorName").value.trim();
+
+  if(name === ""){
+    alert("Please enter your name 😊");
+    return;
+  }
+
+  localStorage.setItem("visitorName", name);
+
+  document.getElementById("nameModal").classList.remove("active");
+
+  const splash = document.getElementById("splash");
+  splash.classList.add("fade-out");
+
+  setTimeout(()=>{
+    window.location.href = "home.html";
+  }, 1000);
+}
+</script>
+
+</body>
+</html>

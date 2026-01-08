@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kek & Hutan | Menu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --green:#6F8F5A;
+  --yellow:#F2C94C;
+  --yellow-pastel:#F6E7A6;
+  --cream:#F5F1E8;
+  --dark:#333;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--green);color:var(--dark);}
+
+/* Header / Navbar */
+header{
+  position:fixed;top:0;width:100%;
+  background:var(--yellow-pastel); z-index:1000;
+}
+.navbar{
+  max-width:1200px;margin:auto;
+  display:flex;justify-content:space-between;
+  align-items:center;padding:15px 20px;
+}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:25px;
+  display:flex;
+  align-items:center;
+  color:var(--green);
+}
+.logo img{width:40px;margin-right:10px;}
+nav a{
+  margin-left:25px;text-decoration:none;
+  color:var(--green);
+  font-size:14px;
+  font-family:'Poppins',sans-serif;
+}
+nav a:hover, nav a.active{color:var(--yellow);}
+.cart-icon{margin-left:25px;cursor:pointer;position:relative;font-size:20px;}
+.cart-badge{position:absolute;top:-8px;right:-10px;background:var(--yellow);color:var(--green);font-size:12px;font-weight:bold;padding:2px 6px;border-radius:50%;}
+.cart-dropdown{display:none;position:absolute;right:0;top:45px;width:280px;background:#fff;color:#000;border-radius:15px;box-shadow:0 8px 20px rgba(0,0,0,0.2);padding:15px;font-size:13px;}
+.cart-dropdown.show{display:block;}
+.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.cart-item .info{flex:1;}
+.cart-item .price{white-space:nowrap;margin-right:8px;}
+.cart-item button{border:none;background:var(--yellow);border-radius:50%;width:24px;height:24px;cursor:pointer;font-weight:bold;}
+.cart-total{text-align:right;font-weight:bold;margin-top:10px;}
+.checkout-btn{margin-top:10px;width:100%;padding:8px 0;background:var(--yellow);border:none;border-radius:10px;cursor:pointer;font-weight:bold;}
+
+/* Hero */
+.hero{
+  height:45vh;
+  background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)), url("images/menu.jpg") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding-top:80px;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:45px;
+  color:var(--yellow);
+  margin-bottom:10px;
+}
+.hero p{
+  font-size:14px;
+  color:#fff;
+}
+
+/* Menu page */
+.menu-page{padding:90px 20px 20px 20px;}
+.our-menu-title{text-align:center;font-family:'Playfair Display',serif;font-size:32px;color:var(--yellow);margin-bottom:40px;}
+.menu-wrapper{max-width:1200px;margin:auto;display:grid;grid-template-columns:240px 1fr;gap:40px;}
+.menu-sidebar{
+  background: var(--yellow-pastel);
+  padding: 25px;
+  border-radius: 15px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+.menu-sidebar h4{color:var(--green);margin-bottom:20px;font-size:18px;}
+.menu-sidebar li{list-style:none;padding:12px 0;cursor:pointer;color:var(--green);font-weight:500;transition:0.3s;}
+.menu-sidebar li.active, .menu-sidebar li:hover{color:var(--yellow);font-weight:600;}
+.menu-section h2{font-family:'Playfair Display',serif;font-size:32px;color:var(--yellow);margin-bottom:25px;}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:30px;}
+.menu-card{background:var(--yellow-pastel);border-radius:15px;padding:15px;text-align:center;color:var(--dark);box-shadow:0 10px 25px rgba(0,0,0,0.1);transition:0.3s;}
+.menu-card:hover{transform:translateY(-5px);box-shadow:0 15px 30px rgba(0,0,0,0.15);}
+.menu-card img{width:100%;height:180px;object-fit:cover;border-radius:10px;transition:0.3s;}
+.menu-card img:hover{opacity:0.9;}
+.menu-card h3{margin:12px 0 5px;font-family:'Playfair Display',serif;}
+.menu-card span{font-size:14px;}
+.menu-card button{margin-top:10px;padding:8px 20px;background:var(--yellow);border:none;border-radius:30px;cursor:pointer;font-weight:500;transition:.4s ease;}
+.menu-card button:hover{background:#fff;transform:translateY(-4px);}
+
+/* Footer */
+footer{background:var(--yellow-pastel);color:var(--green);text-align:center;padding:30px 20px;font-size:13px;}
+footer .socials a{color:var(--green);margin:0 10px;font-size:18px;text-decoration:none;}
+footer .socials a:hover{color:var(--yellow);}
+footer .footer-links a{color:var(--green);margin:0 10px;text-decoration:none;}
+
+/* Modal */
+.modal{display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.6);}
+.modal-content{background:#fff;margin:5% auto;padding:30px;border-radius:10px;max-width:600px;}
+.close{float:right;font-size:24px;cursor:pointer;}
+
+/* Mobile Responsive */
+@media(max-width:768px){
+  .menu-wrapper {
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+  .hero h1 {
+    font-size:28px;
+  }
+  .hero p {
+    font-size:14px;
+  }
+  .menu-section h2 {
+    font-size:28px;
+  }
+  .our-menu-title {
+    font-size:28px;
+  }
+  .menu-sidebar {
+    max-height:none;
+    grid-column:1/-1;
+  }
+  nav a {
+    font-size:14px;
+    margin-left:15px;
+  }
+  .cart-dropdown {
+    width:90%;
+    right:5%;
+    top:60px;
+  }
+  .menu-card {
+    padding:12px;
+  }
+  .menu-card img {
+    height:160px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="logo">
+      <img src="logo.jpg" alt="Kek & Hutan"> Kek & Hutan
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="menu.html" class="active">Menu</a>
+      <a href="services.html">Services</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="contact.html">Contact Us</a>
+      <span class="cart-icon" onclick="toggleCart()">
+        🛒
+        <span class="cart-badge" id="cartBadge">0</span>
+      </span>
+      <div class="cart-dropdown" id="cartDropdown">
+        <div id="cartItems">Cart kosong</div>
+        <div class="cart-total" id="cartTotal"></div>
+        <button class="checkout-btn" onclick="goToCart()">Checkout</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <h1>Our Menu</h1>
+    <p>Discover our delicious offerings!</p>
+  </div>
+</div>
+
+<section class="menu-page">
+<div class="menu-wrapper">
+  <aside class="menu-sidebar">
+    <h4>MENU</h4>
+    <ul>
+      <li class="active" data-section="drinks">Drinks</li>
+      <li data-section="meals">Meals</li>
+      <li data-section="cakes">Kek Lapis</li>
+    </ul>
+  </aside>
+
+  <div class="menu-section">
+    <h2 id="menuTitle">Drinks</h2>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="socials">
+    <a href="https://www.instagram.com/KekdanHutan" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@KekdanHutan" target="_blank"><i class="fab fa-tiktok"></i></a>
+  </div>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('privacy')">Privacy & Policy</a> ·
+    <a href="#" onclick="openModal('terms')">Terms & Conditions</a>
+  </div>
+  <div>© 2026 Kek & Hutan · For Educational Purpose Only</div>
+
+  <div id="datetime" style="margin-top:8px;"></div>
+
+</footer>
+
+<div id="privacy" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('privacy')">&times;</span>
+    <h2>Privacy & Policy</h2>
+
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>Personal Information</strong><br>
+        Kek & Hutan respects your privacy. Any personal information such as name, email address, or feedback provided through our website will be kept confidential.
+      </li><br>
+
+      <li><strong>Use of Information</strong><br>
+        Information collected is used only to improve our services, respond to customer enquiries, and enhance customer experience.
+      </li><br>
+
+      <li><strong>Cookies</strong><br>
+        Our website may use cookies to improve functionality and user experience. Cookies do not store personal data.
+      </li><br>
+    </ul>
+  </div>
+</div>
+
+<div id="terms" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('terms')">&times;</span>
+    <h2>Terms & Conditions</h2>
+
+    <ul style="margin-top:15px; line-height:1.8; padding-left:18px;">
+      <li><strong>General</strong><br>
+        By accessing this website or visiting Kek & Hutan café, you agree to comply with the terms and conditions stated here.
+      </li><br>
+
+      <li><strong>Content Accuracy</strong><br>
+        All information on this website is provided for general purposes only. Kek & Hutan reserves the right to update menu items, prices, or content without prior notice.
+      </li><br>
+
+      <li><strong>Governing Law</strong><br>
+        These terms are governed by the laws of Malaysia.
+      </li>
+    </ul>
+  </div>
+
+
+<script>
+// Adjust padding for fixed header
+document.body.style.paddingTop = document.querySelector('header').offsetHeight + 'px';
+
+// Modal
+function openModal(id){document.getElementById(id).style.display='block';}
+function closeModal(id){document.getElementById(id).style.display='none';}
+
+// Cart
+function getCart(){return JSON.parse(localStorage.getItem("cartItems"))||[];}
+function saveCart(cart){localStorage.setItem("cartItems",JSON.stringify(cart));}
+function addToCart(item){
+  let cart=getCart();
+  let exist=cart.find(i=>i.id===item.id);
+  if(exist){exist.qty++;} else {cart.push({...item,qty:1});}
+  saveCart(cart);updateCart();
+}
+function removeFromCart(id){
+  let cart=getCart();
+  let item=cart.find(x=>x.id===id);
+  if(!item)return;
+  item.qty--;if(item.qty<=0)cart=cart.filter(x=>x.id!==id);
+  saveCart(cart);updateCart();
+}
+function updateCart(){
+  let cart=getCart();let totalQty=0;let totalPrice=0;let html="";
+  cart.forEach(item=>{
+    let subtotal=item.price*item.qty;totalQty+=item.qty;totalPrice+=subtotal;
+    html+=`<div class="cart-item" data-id="${item.id}"><div class="info"><strong>${item.name}</strong><br>RM ${item.price.toFixed(2)} × ${item.qty}</div><div class="price">RM ${subtotal.toFixed(2)}</div><button class="remove-btn">−</button></div>`;
+  });
+  document.getElementById("cartItems").innerHTML=html||"Cart kosong";
+  document.getElementById("cartBadge").innerText=totalQty;
+  document.getElementById("cartTotal").innerText="Total: RM "+totalPrice.toFixed(2);
+  document.querySelectorAll(".remove-btn").forEach(b=>b.onclick=()=>removeFromCart(b.parentElement.dataset.id));
+}
+function toggleCart(){document.getElementById("cartDropdown").classList.toggle("show");}
+function goToCart(){location.href="checkout.html";}
+
+// Menu Data
+const menuData={
+  drinks:{espresso:[
+    {id:"d1",name:"Special Borneo Latte",price:14,image:"images/borneolatte.jpg"},
+    {id:"d2",name:"Caramel Macchiatto",price:14,image:"images/caramelmachiato.jpg"},
+    {id:"d3",name:"Latte Tiramisu",price:17,image:"images/lattetiramisu.jpg"},
+    {id:"d4",name:"Buttercream Latte",price:15,image:"images/buttercreamlatte.jpg"}],
+  nonCoffee:[
+    {id:"d5",name:"Midori Velvet",price:20,image:"images/midorivelvet.jpg"},
+    {id:"d6",name:"Chocolate Indulgence",price:14,image:"images/coklatindulgence.jpg"},
+    {id:"d7",name:"Matcha Strawberry",price:19,image:"images/mtachastawberry.jpg"}],
+  sodaCooler:[
+    {id:"d8",name:"Blue Ternate Lychee Soda",price:12.3,image:"images/blueternate.jpg"},
+    {id:"d9",name:"Melon Breeze Mojito",price:12.8,image:"images/melonmojito.jpg"},
+    {id:"d10",name:"Tropical Passion Fizz",price:12.6,image:"images/tropicalpassion.jpg"}]},
+  meals:[
+    {id:"m1",name:"Mee Kolok Daging",price:16.90,image:"images/meekolokdaging.jpg"},
+    {id:"m2",name:"Mee Kolok Ayam",price:16.90,image:"images/meekolokayam.jpg"},
+    {id:"m3",name:"Mee Goreng Special",price:17.90,image:"images/meebasahspecial.jpg"},
+    {id:"m4",name:"Mee Tomato",price:15,image:"images/meetomato.jpg"},
+    {id:"m5",name:"Nasi Daging Hitam",price:18,image:"images/nasidaginghitam.jpg"},
+    {id:"m6",name:"Nasi Ayam Merah",price:12.90,image:"images/nasiayammasakpedas.jpg"},
+    {id:"m7",name:"Nasi Lemak",price:14,image:"images/nasilemak.jpg"},
+    {id:"m8",name:"Laksa Sarawak Special",price:18,image:"images/laksasarawakspecial.jpg"},
+    {id:"m9",name:"Manok Pansoh",price:17.90,image:"images/manokpansoh.jpg"},
+    {id:"m10",name:"Ambuyat Set",price:25,image:"images/setambuyat.jpg"}],
+  cakes:[
+    {id:"c1",name:"Lumut Cheese",price:3.5,image:"images/lumut.jpg"},
+    {id:"c2",name:"Chocolate Chip",price:3.5,image:"images/chocchip.jpg"},
+    {id:"c3",name:"Masam Manis",price:3.5,image:"images/masam manis.jpg"},
+    {id:"c4",name:"Watermelon",price:3.7,image:"images/tembikai.jpg"},
+    {id:"c5",name:"Red Velvet",price:3.7,image:"images/redvelvet.jpg"},
+    {id:"c6",name:"Gula Apong",price:3.9,image:"images/tkingt.jpg"},
+    {id:"c7",name:"Hitam Manis",price:4.2,image:"images/choc.jpg"},
+    {id:"c8",name:"Banana Choco",price:4.2,image:"images/banana.jpg"},
+    {id:"c9",name:"Keladi Berry",price:4.2,image:"images/berry.jpg"}]
+};
+
+// Display Menu
+function showMenu(type){
+  const grid=document.getElementById("menuGrid");
+  const title=document.getElementById("menuTitle");
+  grid.innerHTML="";
+  if(type==="drinks"){title.innerText="Drinks";
+    ["espresso","nonCoffee","sodaCooler"].forEach(cat=>{
+      let header=document.createElement("h3");
+      header.innerText=cat.toUpperCase();
+      header.style.gridColumn="1/-1";
+      header.style.color="var(--yellow)";
+      header.style.fontFamily="'Playfair Display',serif";
+      header.style.marginTop="20px";
+      grid.appendChild(header);
+      menuData.drinks[cat].forEach(item=>{
+        let card=document.createElement("div");
+        card.className="menu-card";
+        card.innerHTML=`<img src="${item.image}"><h3>${item.name}</h3><span>RM ${item.price.toFixed(2)}</span><br><button onclick='addToCart(${JSON.stringify(item)})'>Add to Cart</button>`;
+        grid.appendChild(card);
+      });
+    });
+  } else if(type==="meals"){title.innerText="Meals";
+    menuData.meals.forEach(item=>{
+      let card=document.createElement("div");
+      card.className="menu-card";
+      card.innerHTML=`<img src="${item.image}"><h3>${item.name}</h3><span>RM ${item.price.toFixed(2)}</span><br><button onclick='addToCart(${JSON.stringify(item)})'>Add to Cart</button>`;
+      grid.appendChild(card);
+    });
+  } else if(type==="cakes"){title.innerText="Kek Lapis";
+    menuData.cakes.forEach(item=>{
+      let card=document.createElement("div");
+      card.className="menu-card";
+      card.innerHTML=`<img src="${item.image}"><h3>${item.name}</h3><span>RM ${item.price.toFixed(2)}</span><br><button onclick='addToCart(${JSON.stringify(item)})'>Add to Cart</button>`;
+      grid.appendChild(card);
+    });
+  }
+}
+
+// Sidebar click
+document.querySelectorAll(".menu-sidebar li").forEach(tab=>{
+  tab.addEventListener("click",()=>{
+    document.querySelectorAll(".menu-sidebar li").forEach(t=>t.classList.remove("active"));
+    tab.classList.add("active");
+    showMenu(tab.dataset.section);
+  });
+});
+
+// Initialize
+showMenu("drinks");
+updateCart();
+</script>
+
+<script>
+function updateDateTime(){
+  const now = new Date();
+
+  const date = now.toLocaleDateString('en-MY', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  const time = now.toLocaleTimeString('en-MY', {
+    hour: 'numeric',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  });
+
+  document.getElementById("datetime").innerText = date + " | " + time;
+}
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
+</script>
+
+
+</body>
+</html>
